@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'courses',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +83,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "drf1",
+        'USER': "postgres",
+        'PASSWORD': "12345"
     }
 }
 

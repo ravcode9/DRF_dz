@@ -1,0 +1,47 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$bCf0PVPa42f2X5wVAX0RFX$6Xg3tk03NWY3M3bPHZxPmz0KOZA/L8DNAhxuphKo5pU=",
+      "last_login": "2024-05-28T08:52:14.835Z",
+      "is_superuser": true,
+      "first_name": "Admin",
+      "last_name": "SkyPro",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-05-28T08:51:54.982Z",
+      "email": "admin@sky.pro",
+      "phone": null,
+      "avatar": "",
+      "town": null,
+      "token": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "payment_date": "2024-05-28T09:26:32.274Z",
+      "course": 1,
+      "lesson": 1,
+      "amount": "2000.00",
+      "payment_method": "cash"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "payment_date": "2024-05-28T09:26:41.560Z",
+      "course": 1,
+      "lesson": 2,
+      "amount": "5000.00",
+      "payment_method": "transfer"
+    }
+  }
+]
