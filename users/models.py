@@ -12,6 +12,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='users/avatars/', verbose_name='аватар', blank=True, null=True)
     town = models.CharField(max_length=100, blank=True, null=True)
     token = models.CharField(max_length=100, verbose_name="Токен", blank=True, null=True)
+    is_active = models.BooleanField(default='True', verbose_name='активность')
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -28,7 +29,7 @@ class Payment(models.Model):
         ('transfer', 'Перевод на счет')
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='payments', verbose_name='пользователь')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payments', verbose_name='пользователь')
     payment_date = models.DateTimeField(auto_now_add=True, verbose_name='дата оплаты')
     course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.CASCADE, verbose_name='оплаченный курс')
     lesson = models.ForeignKey(Lesson, null=True, blank=True, on_delete=models.CASCADE, verbose_name='оплаченный урок')
