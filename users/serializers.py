@@ -12,24 +12,24 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    payments = PaymentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'avatar', 'phone', 'town', 'payments']
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ('email', 'password')
 
     def create(self, validated_data):
-        user = User.objects.create(
-            email=validated_data['email'],
-            username=validated_data['username'],
+        user = User(
+            email=validated_data['email']
         )
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-class UserSerializerElse(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'email', 'avatar', 'phone', 'town']
