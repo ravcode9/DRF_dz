@@ -15,3 +15,5 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'course', 'description', 'preview')
     list_filter = ('title',)
     search_fields = ('title', 'preview', 'description', 'course')
+
+
