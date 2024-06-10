@@ -139,7 +139,7 @@ class PaymentCreateAPIView(generics.CreateAPIView):
         elif lesson:
             product_name = lesson.title
         else:
-            raise ValueError("Payment must be associated with either a course or a lesson.")
+            raise ValueError("Оплата должна быть связана с курсом или уроком")
 
         product_id = create_stripe_product(product_name)
         price_id = create_stripe_price(product_id, payment.amount)
