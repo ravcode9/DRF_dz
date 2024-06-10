@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'drf_yasg',
     'users',
     'courses',
     'django_filters',
@@ -147,3 +148,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1000),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
