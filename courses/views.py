@@ -1,14 +1,12 @@
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, generics, status
-from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
 from users.permissions import IsOwner, IsModer
 from .models import Course, Lesson, Subscription
 from .paginators import CourseLessonPaginator
 from .serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from courses.tasks import send_course_update_email
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -58,6 +56,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+
+    def perform_update(self, serializer):
+        """
+        Обновляет курс и отправляет уведомления подписчикам.
+        """
+        course = serializer.save()
+        send_course_update_email.delay(course.id)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
