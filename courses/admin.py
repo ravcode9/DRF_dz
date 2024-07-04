@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from courses.models import Course, Lesson
 
 
@@ -15,5 +14,3 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'course', 'description', 'preview')
     list_filter = ('title',)
     search_fields = ('title', 'preview', 'description', 'course')
-
-

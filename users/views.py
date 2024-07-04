@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.models import User, Payment
 from users.permissions import IsOwner, IsModer
-from users.serializers import UserSerializer, PaymentSerializer, UserCreateSerializer
+from users.serializers import UserSerializer, PaymentSerializer
 from users.services import create_stripe_product, create_stripe_price, create_stripe_checkout_session
 
 
@@ -21,7 +21,7 @@ class UserRegisterView(generics.CreateAPIView):
     """
     queryset = User.objects.all()
     permission_classes = (permissions.AllowAny,)
-    serializer_class = UserCreateSerializer
+    serializer_class = UserSerializer
 
     def perform_create(self, serializer):
         """
@@ -34,6 +34,8 @@ class UserRegisterView(generics.CreateAPIView):
             Response: Ответ с токенами доступа и обновления.
         """
         user = serializer.save()
+        user.set_password(user.password)
+        user.save()
         refresh = RefreshToken.for_user(user)
         return Response({
             'refresh': str(refresh),
